@@ -91,12 +91,12 @@ public class ministryLogin extends javax.swing.JFrame {
         lblPosition.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblPosition.setForeground(new java.awt.Color(0, 177, 175));
         lblPosition.setText("Position");
-        jPanel1.add(lblPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, -1, -1));
+        jPanel1.add(lblPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, -1, -1));
 
         txtPosition.setForeground(new java.awt.Color(0, 177, 175));
         txtPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Head", "Employee" }));
         txtPosition.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(txtPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, 110, -1));
+        jPanel1.add(txtPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 110, -1));
 
         btnLogin.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnLogin.setText("Login");
@@ -106,7 +106,7 @@ public class ministryLogin extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, -1));
+        jPanel1.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, -1, -1));
 
         lbl_error.setForeground(new java.awt.Color(255, 0, 0));
         lbl_error.setText("Login error please check your inputs");

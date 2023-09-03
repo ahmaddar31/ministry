@@ -70,15 +70,15 @@ public class viewPharmacy extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "name", "email", "pharmacy id", "pharmacy name", "pharmacy adress"
+                "id", "name", "email", "pharmacy id", "pharmacy name", "pharmacy adress", "medication name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -253,7 +253,8 @@ public class viewPharmacy extends javax.swing.JFrame {
                 conn = connectdb.createconnection();
                 st = conn.createStatement();
 
-                rs = st.executeQuery("SELECT admin.id,name,email,pharma_id,phName,address FROM admin INNER JOIN pharma ON admin.id=pharma.admin_id  "
+                rs = st.executeQuery("SELECT admin.id,admin.name,admin.email,pharma_id,phName,address,medication.medName FROM admin INNER JOIN pharma ON admin.id=pharma.admin_id "
+                        + "INNER JOIN pharmamed ON pharma.pharma_id=pharmamed.ph_id INNER JOIN medication ON pharmamed.med_id=medication.md_id "
                         + "WHERE email='"+email+"' AND phName='"+pharmacyName+"'");
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                     model.setRowCount(0);
@@ -261,7 +262,7 @@ public class viewPharmacy extends javax.swing.JFrame {
                         testEmail=rs.getString("email");
                         testName = rs.getString("phName");
                         if(email.equals(testEmail) && pharmacyName.equals(testName)){
-                            model.addRow(new String[]{ rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)} );
+                            model.addRow(new String[]{ rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)} );
                         }
                         else{
                             JOptionPane.showMessageDialog(null, "check your inputs please. ");
@@ -293,11 +294,12 @@ public class viewPharmacy extends javax.swing.JFrame {
                 conn = connectdb.createconnection();
                 st = conn.createStatement();
 
-                rs = st.executeQuery("SELECT admin.id,name,email,pharma_id,phName,address FROM admin INNER JOIN pharma ON admin.id=pharma.admin_id");
+                rs = st.executeQuery("SELECT admin.id,admin.name,admin.email,pharma_id,phName,address,medication.medName FROM admin INNER JOIN pharma ON admin.id=pharma.admin_id "
+                        + "INNER JOIN pharmamed ON pharma.pharma_id=pharmamed.ph_id INNER JOIN medication ON pharmamed.med_id=medication.md_id");
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                     model.setRowCount(0);
                     while(rs.next()){
-                            model.addRow(new String[]{ rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)} );
+                            model.addRow(new String[]{ rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)} );
                 }
 
             }catch(SQLException e){
