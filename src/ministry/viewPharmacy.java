@@ -70,15 +70,15 @@ public class viewPharmacy extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "name", "email", "pharmacy id", "pharmacy name", "pharmacy adress", "medication name"
+                "id", "name", "email", "pharmacy id", "pharmacy name", "pharmacy adress", "medication name", "Quantity", "Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -93,7 +93,10 @@ public class viewPharmacy extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +164,7 @@ public class viewPharmacy extends javax.swing.JFrame {
                         .addComponent(lblLogo)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 128, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +224,8 @@ public class viewPharmacy extends javax.swing.JFrame {
 
     private void btnArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArrowActionPerformed
         if(AdminSession.isLoggedIn()){
-            int adminId = AdminSession.getMinistryAdminId();
+            String adminEmail = AdminSession.getMinistryAdminEmail();
+            int adminId = AdminSession.getAdminId();
             if(adminId==1){
                 setVisible(false);
                 new HeadHome().setVisible(true);
@@ -285,7 +289,7 @@ public class viewPharmacy extends javax.swing.JFrame {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         if (AdminSession.isLoggedIn()) {
-           int adminId = AdminSession.getMinistryAdminId();
+           
             try{
 
                 Connection conn;
@@ -294,12 +298,12 @@ public class viewPharmacy extends javax.swing.JFrame {
                 conn = connectdb.createconnection();
                 st = conn.createStatement();
 
-                rs = st.executeQuery("SELECT admin.id,admin.name,admin.email,pharma_id,phName,address,medication.medName FROM admin INNER JOIN pharma ON admin.id=pharma.admin_id "
+                rs = st.executeQuery("SELECT admin.id,admin.name,admin.email,pharma_id,phName,address,medication.medName,pharmamed.quantity,pharmamed.price FROM admin INNER JOIN pharma ON admin.id=pharma.admin_id "
                         + "INNER JOIN pharmamed ON pharma.pharma_id=pharmamed.ph_id INNER JOIN medication ON pharmamed.med_id=medication.md_id");
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                     model.setRowCount(0);
                     while(rs.next()){
-                            model.addRow(new String[]{ rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)} );
+                            model.addRow(new String[]{ rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9)} );
                 }
 
             }catch(SQLException e){

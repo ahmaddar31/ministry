@@ -162,6 +162,8 @@ public class updatePharmacist extends javax.swing.JFrame {
                 }else{
                     JOptionPane.showMessageDialog(null,"name or email doesn't exist please check them. ", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
+                setVisible(false);
+                new updatePharmacist().setVisible(true);
             } catch (SQLException sqlException) {
                 // Handle SQLException
                 sqlException.printStackTrace();

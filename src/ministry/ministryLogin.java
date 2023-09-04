@@ -147,22 +147,23 @@ public class ministryLogin extends javax.swing.JFrame {
             ResultSet rs;
             conn = connectdb.createconnection();
             st = conn.createStatement();
-            rs = st.executeQuery("SELECT id,Admin_email,Admin_password,position FROM ministry WHERE Admin_email= '" + email + "' and Admin_password= '" + password + "' "
+            rs = st.executeQuery("SELECT Admin_email,Admin_password,position FROM ministry WHERE Admin_email= '" + email + "' and Admin_password= '" + password + "' "
                     + "AND position='"+position+"'");
             while(rs.next()){
-                adminId = rs.getInt(1);
-                testEmail = rs.getString(2);
-                testPassword = rs.getString(3);
-                testPosition = rs.getString(4);
+                testEmail = rs.getString(1);
+                testPassword = rs.getString(2);
+                testPosition = rs.getString(3);
             }
             
             if(email.equals(testEmail) && password.equals(testPassword)){
                 if("Head".equals(testPosition)){
-                    AdminSession.setMinistryAdminId(true, adminId); // Set the login status
+                    AdminSession.setLoggedIn(true, 1);
+                    AdminSession.setMinistryAdminEmail(true, email); // Set the login status
                     setVisible(false);
                     new HeadHome().setVisible(true);
                 }else{
-                    AdminSession.setMinistryAdminId(true, adminId); // Set the login status
+                    AdminSession.setLoggedIn(true, 1);
+                    AdminSession.setMinistryAdminEmail(true, email); // Set the login status
                     setVisible(false);
                     new EmployeeHome().setVisible(true);
                 }

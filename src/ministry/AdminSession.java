@@ -12,7 +12,7 @@ package ministry;
 public class AdminSession {
     private static boolean isLoggedIn = false;
     private static int adminId = -1;
-    private static int ministryAdminId = -1;
+    private static String ministryAdminEmail = null;
 
     public static boolean isLoggedIn() {
         return isLoggedIn;
@@ -27,13 +27,13 @@ public class AdminSession {
         return adminId;
     }
     
-    public static void setMinistryAdminId(boolean loggedIn,int id) {
+    public static void setMinistryAdminEmail(boolean loggedIn,String email) {
         isLoggedIn = loggedIn;
-        ministryAdminId = id;
+        ministryAdminEmail = email;
     }
 
-    public static int getMinistryAdminId() {
-        return ministryAdminId;
+    public static String getMinistryAdminEmail() {
+        return ministryAdminEmail;
     }
 }
 

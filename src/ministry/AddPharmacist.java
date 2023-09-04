@@ -155,7 +155,8 @@ public class AddPharmacist extends javax.swing.JFrame {
         String password = txtPassword.getText();
         String pharmacyName = txtPharmacyName.getText();
         String pharmacyAdress = txtAdress.getText();
-        int adminId = AdminSession.getMinistryAdminId();
+        String adminEmail = AdminSession.getMinistryAdminEmail();
+        int adminId = AdminSession.getAdminId();
         
         try{
             
@@ -166,12 +167,12 @@ public class AddPharmacist extends javax.swing.JFrame {
             conn = connectdb.createconnection();
             st = conn.createStatement();
             
-            String insertToAdmin = "INSERT INTO admin (name,email,pass,ministry_id) VALUES (?,?,?,?)";
+            String insertToAdmin = "INSERT INTO admin (name,email,pass,ministryEmail) VALUES (?,?,?,?)";
             ps = conn.prepareStatement(insertToAdmin);
             ps.setString(1,pharmacistName);
             ps.setString(2,email);
             ps.setString(3,password);
-            ps.setInt(4, adminId);
+            ps.setString(4, adminEmail);
             ps.executeUpdate();
             System.out.println("Data inserted successfully into admin.");
             
@@ -191,6 +192,8 @@ public class AddPharmacist extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null,"no pharmacist to add pharmacy", "Warning", JOptionPane.WARNING_MESSAGE);
             }
+            setVisible(false);
+            new AddPharmacist().setVisible(true);
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,e, "Warning", JOptionPane.WARNING_MESSAGE);
